@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Archivist Chat – Destiny Unwritten</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{background:#0b0c10;color:#eee;font-family:sans-serif;padding:1em}
+#log{height:300px;overflow:auto;border:1px solid #333;padding:8px;margin-bottom:8px;border-radius:6px}
+.msg{margin:4px 0}
+.user{color:#8be9fd}
+.npc{color:#f1fa8c}
+</style>
+</head>
+<body>
+<h2>The Archivist</h2>
+<div id="log"></div>
+<form id="chat">
+  <input id="q" style="width:80%" placeholder="Ask of the First War, the Fracture…" />
+  <button>Ask</button>
+</form>
+
+<script>
+const eras=[
+ {k:["first war","trumpet"],r:"The First War—alliances broke, oaths fractured."},
+ {k:["fracture","filament","doll"],r:"The Fracture cracked time; the Filament whispered, the Doll remembered."},
+ {k:["age","factions","towns"],r:"The Fractured Age—maps lie politely, but choices echo loudly."}
+];
+function say(role,t){log.innerHTML+=`<div class="msg ${role}">${role}: ${t}</div>`;log.scrollTop=99999;}
+chat.onsubmit=e=>{
+ e.preventDefault();let t=q.value.toLowerCase();if(!t)return;
+ say("You",q.value);
+ let f=eras.find(x=>x.k.some(k=>t.includes(k)));
+ say("Archivist",f?f.r:"Threads cross where you tug them. Ask of an era, a place, or a name.");
+ q.value="";
+};
+say("Archivist","I am the Archivist. Ask of the First War, the Fracture, or the Age.");
+</script>
+</body>
+</html>
